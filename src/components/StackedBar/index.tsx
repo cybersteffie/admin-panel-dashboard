@@ -47,7 +47,7 @@ function StackedBarChart({ data }: StackedBarChartProps) {
         borderWidth: 2.1,
       },
       {
-        label: "Partial",
+        label: "Failed Attempt",
         data: data.partial,
         backgroundColor: "rgba(3, 140, 252, 0.5)",
         borderColor: "rgba(3, 140, 252, 0.99)",
