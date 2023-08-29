@@ -49,12 +49,18 @@ export function rangesCompletedvsPartialDonut(data, id) {
   let complete = 0,
     partial = 0;
 
+  let last_goal = {};
   data.forEach((d) => {
     if (uniqueRangesGoals[id] === undefined) {
       uniqueRangesGoals[id] = d.total_flags;
       total_flags = d.total_flags;
     }
     if (d.range_name.localeCompare(id) === 0) {
+      if (d.FinalGoal === "T") {
+        if (last_goal[d.user_id] === undefined) {
+          last_goal[d.user_id] = 1;
+        }
+      }
       if (uniqueStudents[d.user_id] === undefined) {
         uniqueStudents[d.user_id] = {};
         if (d.completion_status === "C") {
@@ -70,8 +76,11 @@ export function rangesCompletedvsPartialDonut(data, id) {
     }
   });
 
+  console.log("786 uniqueStudents", uniqueStudents);
   Object.keys(uniqueStudents).forEach((d) => {
-    if (Object.keys(uniqueStudents[d]).length === total_flags) {
+    if (last_goal[d] !== "undefined" && last_goal[d] === 1) {
+      complete++;
+    } else if (Object.keys(uniqueStudents[d]).length === total_flags) {
       complete++;
     } else {
       partial++;
@@ -96,7 +105,11 @@ export function stackedBar(data, id) {
   data.forEach((d) => {
     if (d.range_name.localeCompare(id) === 0) {
       if (uniqueGoals[d.goal_id] === undefined) {
-        uniqueGoals[d.goal_id] = { completed: 0, partial: 0 };
+        if (d.completion_status === "C") {
+          uniqueGoals[d.goal_id] = { completed: 1, partial: 0 };
+        } else {
+          uniqueGoals[d.goal_id] = { completed: 0, partial: 1 };
+        }
       } else {
         if (d.completion_status === "C") {
           uniqueGoals[d.goal_id]["completed"] =
