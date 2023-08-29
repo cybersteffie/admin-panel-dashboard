@@ -122,11 +122,13 @@ export function stackedBar(data, id) {
     }
   });
 
+  let index = 1; // Start counting from 1
+
   Object.keys(uniqueGoals).forEach((d) => {
     completed.push(uniqueGoals[d].completed);
     partial.push(uniqueGoals[d].partial);
-    labels.push("Group " + d);
+    labels.push("Goal " + index); // Use the index instead of d
+    index++; // Increment the index
   });
-
   return { labels: labels, completed: completed, partial: partial };
 }

@@ -23,7 +23,7 @@ function DoughnutChart({ data }: DoughnutChartProps) {
   };
 
   let doughnutData = {
-    labels: ["Completed", "Partial Completed"],
+    labels: ["Completed", "Failed Attempts"],
     datasets: [
       {
         data: data,
