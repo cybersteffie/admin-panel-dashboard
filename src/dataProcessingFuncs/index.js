@@ -98,7 +98,7 @@ export function rangesCompletedvsPartialDonut(data, id) {
 }
 
 export function stackedBar(data, id) {
-  let uniqueGoals = {},
+    let uniqueGoals = {},
     completed = [],
     partial = [],
     labels = [],
