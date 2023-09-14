@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import DarkDropdown from "../../components/DropDown";
 import googleSheetApi from "../../api/fetchGoogleSheet";
 import DoughnutChart from "../../components/DonutChart";
+import DonutChartSignUps from "../../components/DonutChartSignUps";
 import StackedBarChart from "../../components/StackedBar";
 import {
   rangeLists,
