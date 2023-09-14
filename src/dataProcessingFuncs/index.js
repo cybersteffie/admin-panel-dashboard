@@ -45,12 +45,16 @@ export function rangesCompletedvsPartialDonutall(data) {
 export function rangesCompletedvsPartialDonut(data, id) {
   let uniqueRangesGoals = {},
     uniqueStudents = {},
+    totalUniqueStudents = {},
     total_flags;
   let complete = 0,
     partial = 0;
 
   let last_goal = {};
   data.forEach((d) => {
+    if (totalUniqueStudents[d.user_id] == undefined) {
+      totalUniqueStudents[d.user_id] = 1;
+    }
     if (uniqueRangesGoals[id] === undefined) {
       uniqueRangesGoals[id] = d.total_flags;
       total_flags = d.total_flags;
@@ -76,7 +80,6 @@ export function rangesCompletedvsPartialDonut(data, id) {
     }
   });
 
-  console.log("786 uniqueStudents", uniqueStudents);
   Object.keys(uniqueStudents).forEach((d) => {
     if (last_goal[d] !== "undefined" && last_goal[d] === 1) {
       complete++;
@@ -87,48 +90,47 @@ export function rangesCompletedvsPartialDonut(data, id) {
     }
   });
 
-  return [complete, partial];
+  return [
+    complete,
+    partial,
+    Object.keys(totalUniqueStudents).length - (complete + partial),
+  ];
 }
 
 export function stackedBar(data, id) {
-  //     let uniqueRangesGoals = {},
-  //     uniqueStudents = {},
-  //     total_flags;
-  //   let complete = 0,
-  //     partial = 0;
-
   let uniqueGoals = {},
     completed = [],
     partial = [],
-    labels = [];
+    labels = [],
+    hints = [];
 
   data.forEach((d) => {
     if (d.range_name.localeCompare(id) === 0) {
       if (uniqueGoals[d.goal_id] === undefined) {
         if (d.completion_status === "C") {
-          uniqueGoals[d.goal_id] = { completed: 1, partial: 0 };
+          uniqueGoals[d.goal_id] = { completed: 1, partial: 0, hints_used: d.hints_used || 0 };
         } else {
-          uniqueGoals[d.goal_id] = { completed: 0, partial: 1 };
+          uniqueGoals[d.goal_id] = { completed: 0, partial: 1, hints_used: d.hints_used || 0 };
         }
       } else {
         if (d.completion_status === "C") {
-          uniqueGoals[d.goal_id]["completed"] =
-            uniqueGoals[d.goal_id]["completed"] + 1;
+          uniqueGoals[d.goal_id]["completed"] = uniqueGoals[d.goal_id]["completed"] + 1;
         } else {
-          uniqueGoals[d.goal_id]["partial"] =
-            uniqueGoals[d.goal_id]["partial"] + 1;
+          uniqueGoals[d.goal_id]["partial"] = uniqueGoals[d.goal_id]["partial"] + 1;
         }
+        // Assuming you want to accumulate hints for a goal if it appears multiple times in the dataset
+        uniqueGoals[d.goal_id]["hints_used"] += (d.hints_used || 0);
       }
     }
   });
 
-  let index = 1; // Start counting from 1
-
-  Object.keys(uniqueGoals).forEach((d) => {
+  Object.keys(uniqueGoals).forEach((d, index) => {
+    let count = index + 1;  // counting starts from 1
     completed.push(uniqueGoals[d].completed);
     partial.push(uniqueGoals[d].partial);
-    labels.push("Goal " + index); // Use the index instead of d
-    index++; // Increment the index
+    labels.push("Goal " + count);
+    hints.push(uniqueGoals[d].hints_used);
   });
-  return { labels: labels, completed: completed, partial: partial };
+
+  return { labels: labels, completed: completed, partial: partial, hints: hints };
 }

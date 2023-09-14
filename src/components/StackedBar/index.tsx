@@ -10,7 +10,7 @@ import { Bar } from "react-chartjs-2";
 import { ChartOptions } from "chart.js/auto"; // Importing ChartOptions type
 
 interface StackedBarChartProps {
-  data: { labels: string[]; completed: Number[]; partial: Number[] };
+  data: { labels: string[]; completed: Number[]; partial: Number[]; hints: Number[] };
 }
 
 function StackedBarChart({ data }: StackedBarChartProps) {
@@ -47,8 +47,15 @@ function StackedBarChart({ data }: StackedBarChartProps) {
         borderWidth: 2.1,
       },
       {
-        label: "Failed Attempt",
+        label: "Incomplete",
         data: data.partial,
+        backgroundColor: "rgba(255, 167, 38, 0.5)",
+        borderColor: "rgba(255, 167, 38, 0.99)",
+        borderWidth: 2.1,
+      },
+      {
+        label: "Hints",
+        data: data.hints,
         backgroundColor: "rgba(3, 140, 252, 0.5)",
         borderColor: "rgba(3, 140, 252, 0.99)",
         borderWidth: 2.1,

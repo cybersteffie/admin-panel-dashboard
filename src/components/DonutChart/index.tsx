@@ -23,12 +23,20 @@ function DoughnutChart({ data }: DoughnutChartProps) {
   };
 
   let doughnutData = {
-    labels: ["Completed", "Failed Attempts"],
+    labels: ["Completed", "Incomplete", "Not Started"],
     datasets: [
       {
         data: data,
-        backgroundColor: ["rgba(3, 252, 148, 0.5)", "rgba( 3, 140, 252, 0.5)"],
-        borderColor: ["rgba(3, 252, 148, 0.99)", "rgba( 3, 140, 252, 0.99)"],
+        backgroundColor: [
+          "rgba(3, 252, 148, 0.5)",
+          "rgba(255, 167, 38, 0.5)",
+          "rgba(244, 67, 54, 0.5)",
+        ],
+        borderColor: [
+          "rgba(3, 252, 148, 0.99)",
+          "rgba(255, 167, 38, 0.99)",
+         "rgba(244, 67, 54, 0.99)",
+        ],
       },
     ],
   };
