@@ -60,7 +60,7 @@ function RangeDashboard() {
                   color="white"
                   mt={1.5}
                 >
-                  Number of Students Completed Range Vs Partial Completed
+                  Completion Rate
                 </Typography>
 
                 <CardContent key={"1c"}>
@@ -78,7 +78,7 @@ function RangeDashboard() {
                   color="white"
                   mt={1.5}
                 >
-                  Numbers of Students Completed Goals Vs Partial
+                  Attempts/Hints by Goal
                 </Typography>
 
                 <CardContent key={"2c"}>

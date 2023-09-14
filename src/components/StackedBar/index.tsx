@@ -40,21 +40,21 @@ function StackedBarChart({ data }: StackedBarChartProps) {
     labels: data.labels,
     datasets: [
       {
-        label: "Completed",
+        label: "Successful Attempt",
         data: data.completed,
         backgroundColor: "rgba(3, 252, 148, 0.5)",
         borderColor: "rgba(3, 252, 148, 0.99)",
         borderWidth: 2.1,
       },
       {
-        label: "Incomplete",
+        label: "Failed Attempt",
         data: data.partial,
-        backgroundColor: "rgba(255, 167, 38, 0.5)",
-        borderColor: "rgba(255, 167, 38, 0.99)",
+        backgroundColor: "rgba(171, 71, 188, 0.5)",
+        borderColor: "rgba(171, 71, 188, 0.99)",
         borderWidth: 2.1,
       },
       {
-        label: "Hints",
+        label: "Hints Used",
         data: data.hints,
         backgroundColor: "rgba(3, 140, 252, 0.5)",
         borderColor: "rgba(3, 140, 252, 0.99)",
